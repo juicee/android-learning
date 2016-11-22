@@ -38,7 +38,7 @@ public class NerdLauncherFragment extends ListFragment {
         PackageManager pm = getActivity().getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(startupIntent, 0);
 
-        Log.i(TAG, "I've found " + activities.size() + " activities.");
+        Log.i(TAG, "I've found " + activities.size() + " activities. ");
 
         Collections.sort(activities, new Comparator<ResolveInfo>() {
             @Override

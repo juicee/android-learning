@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,11 +55,17 @@ public class NerdLauncherFragment extends ListFragment {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 PackageManager pm = getActivity().getPackageManager();
-                View v = super.getView(position, convertView, parent);
-                TextView tv = (TextView)v;
+                if (convertView == null) {
+                    convertView = getActivity().getLayoutInflater().inflate(R.layout.list_fragment, null);
+                }
                 ResolveInfo ri = getItem(position);
-                tv.setText(ri.loadLabel(pm));
-                return v;
+
+                ImageView imageView = (ImageView)convertView.findViewById(R.id.launchAppImage);
+                imageView.setImageDrawable(ri.loadIcon(pm));
+
+                TextView textView = (TextView)convertView.findViewById(R.id.launchAppName);
+                textView.setText(ri.loadLabel(pm));
+                return convertView;
             }
         };
         setListAdapter(adapter);
